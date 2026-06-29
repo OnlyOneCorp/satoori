@@ -124,7 +124,10 @@
   footer a{color:var(--sub); text-decoration:none;}
   footer a:hover{color:var(--ink);}
   .foot-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:12px;}
+  /* .disclosure{font-size:11px; color:#a1a1a6; margin-top:14px; line-height:1.5;} */
   .disclosure{font-size:11px; color:#a1a1a6; margin-top:14px; line-height:1.5;}
+  .btn.aff{background:#ffeae3; color:#c0392b; font-weight:700;}
+  .btn.aff:hover{filter:brightness(1.03);}
   #consent{position:fixed; left:14px; right:14px; bottom:14px; z-index:50; max-width:520px; margin:0 auto;
     background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.16);
     padding:20px; animation:fade .4s ease;}
@@ -219,7 +222,10 @@
     </div>
     <button class="btn btn-ghost mt" id="r-share"></button>
     <button class="btn btn-primary mt" id="r-retry"></button>
+    <!-- <a class="btn btn-ghost mt" id="r-home" href="https://main.onlyonecorpceo.workers.dev"></a>
+    <div class="lbbox" id="r-lbForm"> -->
     <a class="btn btn-ghost mt" id="r-home" href="https://main.onlyonecorpceo.workers.dev"></a>
+    <a class="btn aff mt hide" id="r-aff" target="_blank" rel="noopener sponsored"></a>
     <div class="lbbox" id="r-lbForm">
       <label id="r-namelbl"></label>
       <div class="frow"><input id="r-name" maxlength="12" /><button id="r-submit"></button></div>
@@ -509,7 +515,9 @@ const T = {
     toplbl:"내 사투리 점수", of:s=>`${s}<span> / ${DRAW}</span>`,
     streakRes:k=>`최고 연속 정답 <span>🔥 ${k}개</span>`,
     gotLbl:"맞힌 지역",
+    // cardScore:"점수 카드", cardHof:"전당 카드", share:"링크 공유", retry:"다시 풀기", home:"OnlyOne 더 보기",
     cardScore:"점수 카드", cardHof:"전당 카드", share:"링크 공유", retry:"다시 풀기", home:"OnlyOne 더 보기",
+    affLabel:"🛒 쿠팡 인기 상품 보러가기",
     hof:"명예의 전당 (이 기기 기준)", nohof:"아직 기록이 없어요. 첫 주인공이 되어보세요!",
     you:"나", saveAlert:"이미지를 저장했어요!", copyAlert:"링크가 복사되었어요!",
     fhome:"OnlyOne 홈", fcontact:"문의하기",
@@ -538,7 +546,9 @@ const T = {
     toplbl:"My dialect score", of:s=>`${s}<span> / ${DRAW}</span>`,
     streakRes:k=>`Best streak <span>🔥 ${k}</span>`,
     gotLbl:"Regions you nailed",
+    // cardScore:"Score card", cardHof:"Hall card", share:"Share link", retry:"Play again", home:"More from OnlyOne",
     cardScore:"Score card", cardHof:"Hall card", share:"Share link", retry:"Play again", home:"More from OnlyOne",
+    affLabel:"🛒 Shop dialect & travel books on Amazon",
     hof:"Hall of Fame (this device)", nohof:"No records yet. Be the first!",
     you:"You", saveAlert:"Image saved!", copyAlert:"Link copied!",
     fhome:"OnlyOne Home", fcontact:"Contact",
@@ -654,7 +664,13 @@ function renderStatic(){
   $("r-toplbl").textContent=t.toplbl;
   $("r-namelbl").textContent=t.nameLbl;
   $("r-name").placeholder=t.namePh;
+  // $("r-submit").textContent=t.submitBtn;
+  // renderHOF("s-hofWrap");
   $("r-submit").textContent=t.submitBtn;
+  const affUrl = lang==="ko" ? COUPANG_URL : AMAZON_URL;
+  const aff = $("r-aff");
+  if(affUrl && !affUrl.includes("XXXXXX")){ aff.href=affUrl; aff.textContent=t.affLabel; aff.classList.remove("hide"); }
+  else { aff.classList.add("hide"); }
   renderHOF("s-hofWrap");
   loadStartLB();
 }
