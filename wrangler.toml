@@ -1,0 +1,14 @@
+name = "dialect-quiz"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# index.html 을 ./public/index.html 에 두세요 (_headers 도 함께)
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+# 먼저 실행:  wrangler kv namespace create LEADERBOARD
+# 출력된 id 를 아래 id 에 붙여넣으세요.
+[[kv_namespaces]]
+binding = "LEADERBOARD"
+id = "여기에_KV_네임스페이스_ID"

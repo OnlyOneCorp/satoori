@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>사투리 맞추기 · Guess the Dialect | OnlyOne</title>
+<meta name="description" content="한국 사투리·영어 방언 100문제. 영화/드라마 명대사로 어느 지역인지 맞춰보세요. 연속 정답·명예의 전당·카드 공유. OnlyOne." />
+
+<!-- ===== Google Analytics 4 + Consent Mode v2 ===== -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied',
+    analytics_storage:'denied', functionality_storage:'granted', security_storage:'granted',
+    wait_for_update:500
+  });
+  gtag('js', new Date());
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  gtag('config', 'G-XXXXXXXXXX', { anonymize_ip:true });
+</script>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+<style>
+  :root{
+    --ink:#1d1d1f; --sub:#6e6e73; --line:#e3e3e6;
+    --bg:#f5f5f7; --card:#ffffff; --logo:#43474d;
+    --accent:#0071e3; --ok:#1c8e4a; --no:#d23b3b;
+    --shadow:0 8px 30px rgba(0,0,0,.06); --r:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",system-ui,sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased; line-height:1.55;
+    display:flex; flex-direction:column; min-height:100%;
+  }
+  header{
+    position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px; backdrop-filter:saturate(180%) blur(20px);
+    background:rgba(245,245,247,.8); border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:9px; text-decoration:none; color:var(--ink);}
+  .brand b{font-size:18px; font-weight:700; letter-spacing:-.02em;}
+  .lang-btn{border:1px solid var(--line); background:var(--card); font:inherit; font-size:13px; font-weight:600;
+    color:var(--ink); padding:7px 14px; border-radius:999px; cursor:pointer; transition:.2s;}
+  .lang-btn:hover{background:#fafafa;}
+  main{flex:1; display:flex; align-items:flex-start; justify-content:center; padding:30px 18px 60px;}
+  .wrap{width:100%; max-width:560px;}
+  section{animation:fade .4s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);}to{opacity:1; transform:none;}}
+  .hide{display:none !important;}
+  .hero{text-align:center; padding:16px 0 4px;}
+  .hero h1{font-size:34px; font-weight:800; letter-spacing:-.03em; line-height:1.15;}
+  .hero p{color:var(--sub); margin-top:12px; font-size:16px;}
+  .card{background:var(--card); border-radius:var(--r); box-shadow:var(--shadow); padding:26px; margin-top:22px;}
+  .btn{display:block; width:100%; border:none; cursor:pointer; font:inherit; font-weight:700; font-size:17px;
+    padding:16px; border-radius:14px; transition:.18s; text-align:center; text-decoration:none;}
+  .btn-primary{background:var(--accent); color:#fff;}
+  .btn-primary:hover{filter:brightness(1.06);}
+  .btn-ghost{background:#f0f0f3; color:var(--ink); font-weight:600; font-size:15px;}
+  .btn-ghost:hover{background:#e9e9ee;}
+  .row{display:flex; gap:10px;}
+  .row .btn{margin-top:0;}
+  .mt{margin-top:12px;}
+  .best{display:flex; gap:10px; margin-top:18px;}
+  .best > div{flex:1; text-align:center; background:#f0f0f3; border-radius:13px; padding:13px;}
+  .best small{display:block; color:var(--sub); font-size:12px; font-weight:600;}
+  .best b{font-size:20px; letter-spacing:-.02em;}
+  .progress{display:flex; align-items:center; justify-content:space-between; font-size:13px; color:var(--sub); margin-bottom:12px;}
+  .progress .sc{font-weight:700; color:var(--ink);}
+  .bar{height:5px; background:#e7e7ea; border-radius:999px; overflow:hidden; margin-bottom:18px;}
+  .bar i{display:block; height:100%; background:var(--accent); border-radius:999px; transition:width .35s ease;}
+  .phrase{text-align:center; padding:28px 18px; background:#fafafa; border-radius:16px; border:1px solid var(--line);}
+  .phrase small{color:var(--sub); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  .phrase .word{font-size:30px; font-weight:800; letter-spacing:-.02em; margin-top:8px; line-height:1.25;}
+  .phrase .word.quote{font-size:25px;}
+  .phrase .word.quote::before{content:"\201C";} .phrase .word.quote::after{content:"\201D";}
+  .q-title{text-align:center; font-size:15px; color:var(--sub); margin:16px 0 12px;}
+  .opts{display:grid; gap:10px;}
+  .opt{border:1.5px solid var(--line); background:var(--card); font:inherit; font-size:16px; font-weight:600;
+    color:var(--ink); padding:15px; border-radius:13px; cursor:pointer; text-align:center; transition:.15s;}
+  .opt:hover:not(:disabled){border-color:#c7c7cc;}
+  .opt:disabled{cursor:default;}
+  .opt.correct{border-color:var(--ok); background:#eafaf0; color:var(--ok);}
+  .opt.wrong{border-color:var(--no); background:#fdecec; color:var(--no);}
+  .opt.dim{opacity:.45;}
+  .hint-btn{margin:14px auto 0; display:block; background:none; border:none; cursor:pointer; font:inherit;
+    font-size:14px; font-weight:600; color:var(--accent);}
+  .hint{margin-top:12px; padding:13px 15px; background:#fff8e6; border:1px solid #f3e3b3; border-radius:12px;
+    font-size:14px; color:#7a5c00;}
+  .reveal{margin-top:16px; padding:16px; border-radius:13px; background:#f0f0f3; font-size:15px; line-height:1.7;}
+  .reveal .tag{display:inline-block; color:#fff; font-size:12px; font-weight:700; padding:3px 11px; border-radius:999px; margin-bottom:8px;}
+  .reveal .tag.y{background:var(--ok);} .reveal .tag.n{background:var(--no);}
+  .reveal .src{display:inline-block; margin-top:6px; color:var(--accent); font-weight:600; font-size:14px;}
+  .res{text-align:center;}
+  .res .rank{font-size:26px; font-weight:800; letter-spacing:-.02em; margin-top:6px;}
+  .res .score{font-size:60px; font-weight:800; letter-spacing:-.03em; margin:2px 0;}
+  .res .score span{font-size:26px; color:var(--sub); font-weight:600;}
+  .res .desc{color:var(--sub); font-size:15px; margin-top:4px;}
+  .streakline{margin-top:14px; font-size:15px; font-weight:700;}
+  .streakline span{color:#e8590c;}
+  .badges{display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-top:16px;}
+  .badge{background:#eafaf0; color:var(--ok); border:1px solid #c4ead2; font-size:13px; font-weight:700;
+    padding:6px 12px; border-radius:999px;}
+  canvas{display:none;}
+  .hof{margin-top:22px;}
+  .hof h3{font-size:14px; color:var(--sub); font-weight:700; margin-bottom:10px;}
+  .hof ol{list-style:none; counter-reset:n;}
+  .hof li{counter-increment:n; display:flex; align-items:center; justify-content:space-between; padding:11px 14px;
+    background:var(--card); border:1px solid var(--line); border-radius:11px; margin-bottom:7px; font-size:14px;}
+  .hof li::before{content:counter(n); font-weight:800; color:var(--accent); margin-right:12px; min-width:18px;}
+  .hof .nm{flex:1; color:var(--sub);}
+  .hof .sc{font-weight:700;}
+  .hof .gold::before{content:"🥇"; color:transparent;}
+  .hof .silver::before{content:"🥈";}
+  .hof .bronze::before{content:"🥉";}
+  footer{border-top:1px solid var(--line); padding:26px 20px 40px; text-align:center; font-size:13px; color:var(--sub);}
+  footer a{color:var(--sub); text-decoration:none;}
+  footer a:hover{color:var(--ink);}
+  .foot-links{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:12px;}
+  .disclosure{font-size:11px; color:#a1a1a6; margin-top:14px; line-height:1.5;}
+  #consent{position:fixed; left:14px; right:14px; bottom:14px; z-index:50; max-width:520px; margin:0 auto;
+    background:var(--card); border:1px solid var(--line); border-radius:18px; box-shadow:0 12px 40px rgba(0,0,0,.16);
+    padding:20px; animation:fade .4s ease;}
+  #consent p{font-size:13.5px; color:var(--sub); line-height:1.6;}
+  #consent .ttl{font-weight:700; color:var(--ink); font-size:15px; margin-bottom:6px;}
+  #consent .c-row{display:flex; gap:10px; margin-top:14px;}
+  #consent button{flex:1; padding:12px; border-radius:11px; font:inherit; font-weight:700; font-size:14px; cursor:pointer; border:none;}
+  #c-accept{background:var(--accent); color:#fff;} #c-deny{background:#f0f0f3; color:var(--ink);}
+  #combo{position:fixed; left:50%; top:32%; transform:translate(-50%,-50%) scale(.6); z-index:55;
+    background:rgba(29,29,31,.92); color:#fff; font-weight:800; font-size:26px; padding:14px 26px;
+    border-radius:18px; opacity:0; pointer-events:none; transition:.18s;}
+  #combo.on{opacity:1; transform:translate(-50%,-50%) scale(1);}
+  .confetti{position:fixed; top:-40px; z-index:60; pointer-events:none; animation:fall 2.4s linear forwards;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(360deg); opacity:.15;}}
+  .speak{margin-top:14px; background:#fff; border:1px solid var(--line); border-radius:999px; cursor:pointer; font-size:17px; line-height:1; padding:8px 16px; transition:.15s;}
+  .speak:hover{background:#fafafa;} .speak:active{transform:scale(.95);}
+  .speak.playing{background:var(--accent); border-color:var(--accent);}
+  .lbload{color:var(--sub); font-size:14px; padding:4px 2px;}
+  .hof li.me{border-color:var(--accent); background:#eef6ff;}
+  .lbbox{margin-top:22px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px;}
+  .lbbox label{font-size:13px; font-weight:700; color:var(--sub);}
+  .lbbox .frow{display:flex; gap:8px; margin-top:8px;}
+  .lbbox input{flex:1; min-width:0; border:1px solid var(--line); border-radius:11px; padding:12px; font:inherit; font-size:15px;}
+  .lbbox button{border:none; background:var(--accent); color:#fff; font:inherit; font-weight:700; padding:0 18px; border-radius:11px; cursor:pointer;}
+  .lbbox button:disabled{opacity:.5;}
+  .lbbox .msg{margin-top:8px; font-size:13px; color:var(--ok); font-weight:600; min-height:18px;}
+  @media(max-width:480px){ .hero h1{font-size:28px;} .phrase .word{font-size:26px;} .phrase .word.quote{font-size:22px;} .res .score{font-size:50px;} }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="https://main.onlyonecorpceo.workers.dev" aria-label="OnlyOne">
+    <svg width="26" height="26" viewBox="0 0 100 100" fill="none">
+      <circle cx="42" cy="38" r="24" stroke="var(--logo)" stroke-width="11"/>
+      <rect x="36.5" y="60" width="11" height="30" rx="5.5" fill="var(--logo)"/>
+    </svg>
+    <b>OnlyOne</b>
+  </a>
+  <button class="lang-btn" id="langBtn">EN</button>
+</header>
+
+<main>
+<div class="wrap">
+
+  <section id="start">
+    <div class="hero">
+      <h1 id="s-title"></h1>
+      <p id="s-sub"></p>
+    </div>
+    <div class="card">
+      <button class="btn btn-primary" id="startBtn"></button>
+      <div class="best">
+        <div><small id="s-bs-lbl"></small><b id="s-best">–</b></div>
+        <div><small id="s-st-lbl"></small><b id="s-streak">–</b></div>
+      </div>
+    </div>
+    <div class="hof" id="s-lbWrap"></div>
+    <div class="hof" id="s-hofWrap"></div>
+  </section>
+
+  <section id="quiz" class="hide">
+    <div class="progress"><span id="q-count"></span><span class="sc" id="q-score"></span></div>
+    <div class="bar"><i id="q-bar"></i></div>
+    <div class="phrase">
+      <small id="q-label"></small>
+      <div class="word" id="q-word"></div>
+      <button class="speak" id="q-speak" aria-label="read aloud">🔊</button>
+    </div>
+    <div class="q-title" id="q-ask"></div>
+    <div class="opts" id="q-opts"></div>
+    <button class="hint-btn" id="q-hintBtn"></button>
+    <div class="hint hide" id="q-hint"></div>
+    <div class="reveal hide" id="q-reveal"></div>
+    <button class="btn btn-primary mt hide" id="q-next"></button>
+  </section>
+
+  <section id="result" class="hide">
+    <div class="card res">
+      <small style="color:var(--sub);font-weight:600;" id="r-toplbl"></small>
+      <div class="rank" id="r-rank"></div>
+      <div class="score"><span id="r-of"></span></div>
+      <div class="desc" id="r-desc"></div>
+      <div class="streakline" id="r-streak"></div>
+      <div class="badges" id="r-badges"></div>
+    </div>
+    <canvas id="r-canvas" width="800" height="1000"></canvas>
+    <canvas id="r-hofcanvas" width="800" height="1000"></canvas>
+    <div class="row mt">
+      <button class="btn btn-ghost" id="r-cardScore"></button>
+      <button class="btn btn-ghost" id="r-cardHof"></button>
+    </div>
+    <button class="btn btn-ghost mt" id="r-share"></button>
+    <button class="btn btn-primary mt" id="r-retry"></button>
+    <a class="btn btn-ghost mt" id="r-home" href="https://main.onlyonecorpceo.workers.dev"></a>
+    <div class="lbbox" id="r-lbForm">
+      <label id="r-namelbl"></label>
+      <div class="frow"><input id="r-name" maxlength="12" /><button id="r-submit"></button></div>
+      <div class="msg" id="r-msg"></div>
+    </div>
+    <div class="hof" id="r-lbWrap"></div>
+    <div class="hof" id="r-hofWrap"></div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot-links">
+    <a href="https://main.onlyonecorpceo.workers.dev" id="f-home"></a>
+    <a href="mailto:onlyonecorpceo@gmail.com" id="f-contact"></a>
+  </div>
+  <div id="f-copy">© OnlyOne</div>
+  <div class="disclosure" id="f-disc"></div>
+</footer>
+
+<div id="combo"></div>
+
+<div id="consent" class="hide">
+  <div class="ttl" id="cn-ttl"></div>
+  <p id="cn-body"></p>
+  <div class="c-row">
+    <button id="c-deny"></button>
+    <button id="c-accept"></button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   출시 전 교체: 상단 G-XXXXXXXXXX / 아래 제휴 상수
+   ============================================================ */
+const COUPANG_URL = "https://link.coupang.com/a/XXXXXX";
+const AMAZON_URL  = "https://www.amazon.com/?tag=XXXXXX";
+const DRAW = 10;
+
+/* ===== 문제 풀 (q:표현, r:지역, m:뜻, src?:출처) ===== */
+const POOL = {
+  ko: {
+    regions:["경상도","전라도","충청도","강원도","제주도"],
+    hint:{
+      "경상도":"억양이 강하고 끝을 톡 올리는 동남권 말투",
+      "전라도":"정겹고 구수한 남서권 말투",
+      "충청도":"느긋하게 끝을 늘이는 중부권 말투 (~유, ~여)",
+      "강원도":"산간·동해안권의 투박한 말투",
+      "제주도":"옛말이 많이 남은 섬 지역 말투"
+    },
+    q:[
+      {q:"머라카노",r:"경상도",m:"뭐라고 하니?"},
+      {q:"가가 가가",r:"경상도",m:"걔가 그 애니?"},
+      {q:"단디 해라",r:"경상도",m:"똑바로/제대로 해라"},
+      {q:"정구지",r:"경상도",m:"부추"},
+      {q:"억수로",r:"경상도",m:"굉장히, 아주 많이"},
+      {q:"어데 가노",r:"경상도",m:"어디 가니?"},
+      {q:"자불다",r:"경상도",m:"졸다"},
+      {q:"욕봤다",r:"경상도",m:"수고했다"},
+      {q:"천지삐까리",r:"경상도",m:"엄청 많다"},
+      {q:"쎄리 패다",r:"경상도",m:"세게 때리다"},
+      {q:"문디",r:"경상도",m:"이 녀석(친근한 표현)"},
+      {q:"디비라",r:"경상도",m:"뒤집어라"},
+      {q:"와이라노",r:"경상도",m:"왜 이러니?"},
+      {q:"퍼뜩 온나",r:"경상도",m:"빨리 와"},
+      {q:"쪼매",r:"경상도",m:"조금"},
+      {q:"맞나",r:"경상도",m:"그래? 정말?"},
+      {q:"글마",r:"경상도",m:"그 녀석"},
+      {q:"쌔비다",r:"경상도",m:"훔치다"},
+      {q:"택도 없다",r:"경상도",m:"어림도 없다"},
+      {q:"우리가 남이가",r:"경상도",m:"우리가 남이냐(다 한편이다)"},
+      {q:"쫄지 마라",r:"경상도",m:"겁먹지 마라"},
+      {q:"함 해보입시더",r:"경상도",m:"한번 해봅시다"},
+      {q:"고마해라 마이 묵었다 아이가",r:"경상도",m:"그만해라, 많이 먹었잖아",src:"영화 〈친구〉"},
+      {q:"내가 니 시다바리가",r:"경상도",m:"내가 네 부하냐",src:"영화 〈친구〉"},
+      {q:"느그 아부지 뭐 하시노",r:"경상도",m:"너희 아버지 뭐 하시니",src:"영화 〈친구〉"},
+      {q:"살아있네",r:"경상도",m:"대단하네 / 죽이네",src:"영화 〈범죄와의 전쟁〉"},
+
+      {q:"거시기",r:"전라도",m:"그거(말이 막힐 때 쓰는 말)"},
+      {q:"워매",r:"전라도",m:"어머나"},
+      {q:"시방",r:"전라도",m:"지금"},
+      {q:"솔찬히",r:"전라도",m:"꽤, 상당히"},
+      {q:"폭폭하다",r:"전라도",m:"답답하다"},
+      {q:"항꾸네",r:"전라도",m:"함께, 한꺼번에"},
+      {q:"게미가 있다",r:"전라도",m:"깊은 맛이 있다"},
+      {q:"으짠다냐",r:"전라도",m:"어쩐다니"},
+      {q:"아따",r:"전라도",m:"(감탄·강조하는 말)"},
+      {q:"머단가",r:"전라도",m:"뭐냐"},
+      {q:"그라제",r:"전라도",m:"그렇지"},
+      {q:"허벌나게",r:"전라도",m:"엄청나게"},
+      {q:"포도시",r:"전라도",m:"가까스로, 겨우"},
+      {q:"쪼까",r:"전라도",m:"조금"},
+      {q:"징하다",r:"전라도",m:"지긋지긋하다, 대단하다"},
+      {q:"오메 환장하겄네",r:"전라도",m:"어머 미치겠네"},
+      {q:"겁나게",r:"전라도",m:"엄청, 무척"},
+      {q:"보드라고",r:"전라도",m:"봐 보라고"},
+      {q:"그랑께",r:"전라도",m:"그러니까"},
+      {q:"잉",r:"전라도",m:"(말끝에 붙이는 강조·다짐)"},
+      {q:"뭣이 중헌디",r:"전라도",m:"뭐가 중요한데",src:"영화 〈곡성〉"},
+
+      {q:"그려",r:"충청도",m:"그래"},
+      {q:"됐슈",r:"충청도",m:"됐어요"},
+      {q:"워뗘",r:"충청도",m:"어때?"},
+      {q:"혀",r:"충청도",m:"해"},
+      {q:"뭐여",r:"충청도",m:"뭐야?"},
+      {q:"댕겨유",r:"충청도",m:"다녀와요"},
+      {q:"했슈",r:"충청도",m:"했어요"},
+      {q:"그류",r:"충청도",m:"그래요"},
+      {q:"안혀",r:"충청도",m:"안 해"},
+      {q:"냅둬유",r:"충청도",m:"놔둬요"},
+      {q:"월매여",r:"충청도",m:"얼마예요?"},
+      {q:"왜그려",r:"충청도",m:"왜 그래?"},
+      {q:"어여 와",r:"충청도",m:"어서 와"},
+      {q:"갸가",r:"충청도",m:"걔가"},
+      {q:"이려",r:"충청도",m:"이래"},
+      {q:"그렇구먼유",r:"충청도",m:"그렇구나"},
+      {q:"왜유",r:"충청도",m:"왜요?"},
+
+      {q:"마카",r:"강원도",m:"모두, 전부"},
+      {q:"어트래",r:"강원도",m:"어떻게"},
+      {q:"메칠",r:"강원도",m:"며칠"},
+      {q:"짜드라",r:"강원도",m:"그다지, 별로"},
+      {q:"동가리",r:"강원도",m:"토막"},
+      {q:"후떼기",r:"강원도",m:"진눈깨비"},
+      {q:"감자바우",r:"강원도",m:"강원도 토박이를 이르는 말"},
+      {q:"댑따",r:"강원도",m:"되게, 엄청"},
+      {q:"감재",r:"강원도",m:"감자"},
+      {q:"옥씨기",r:"강원도",m:"옥수수"},
+      {q:"왔드래요",r:"강원도",m:"왔다더라"},
+      {q:"어디 가오",r:"강원도",m:"어디 가요?"},
+      {q:"콩서리",r:"강원도",m:"남의 콩을 구워 먹는 장난(서리)"},
+      {q:"그래여",r:"강원도",m:"그래요"},
+      {q:"어떠우",r:"강원도",m:"어때요?"},
+      {q:"사부재기",r:"강원도",m:"살그머니, 슬며시"},
+
+      {q:"혼저옵서예",r:"제주도",m:"어서 오세요"},
+      {q:"폭삭 속았수다",r:"제주도",m:"정말 수고하셨습니다"},
+      {q:"하르방",r:"제주도",m:"할아버지"},
+      {q:"할망",r:"제주도",m:"할머니"},
+      {q:"도새기",r:"제주도",m:"돼지"},
+      {q:"무사",r:"제주도",m:"왜?"},
+      {q:"게메",r:"제주도",m:"글쎄"},
+      {q:"정지",r:"제주도",m:"부엌"},
+      {q:"곤밥",r:"제주도",m:"쌀밥"},
+      {q:"놀멍",r:"제주도",m:"놀면서"},
+      {q:"고치글라",r:"제주도",m:"같이 가자"},
+      {q:"어드레 감수과",r:"제주도",m:"어디 가세요?"},
+      {q:"몬딱",r:"제주도",m:"모두, 전부"},
+      {q:"강생이",r:"제주도",m:"강아지"},
+      {q:"정낭",r:"제주도",m:"제주 전통 대문"},
+      {q:"비바리",r:"제주도",m:"처녀, 젊은 여자"},
+      {q:"지꺼지다",r:"제주도",m:"기쁘다, 신나다"},
+      {q:"놈삐",r:"제주도",m:"무(채소)"},
+      {q:"감수광",r:"제주도",m:"가십니까? (노래 제목으로 유명)"},
+      {q:"지슬",r:"제주도",m:"감자",src:"영화 〈지슬〉"}
+    ]
+  },
+  en:{
+    regions:["Scottish","Cockney (London)","Southern US","Australian","Irish"],
+    hint:{
+      "Scottish":"Highlands, lochs and kilts — far north of the UK",
+      "Cockney (London)":"East-End London — famous for rhyming slang",
+      "Southern US":"The slow drawl of the American Deep South",
+      "Australian":"Down-under slang — loves shortening every word",
+      "Irish":"Everyday speech from the Emerald Isle"
+    },
+    q:[
+      {q:"Wee",r:"Scottish",m:"small, little"},
+      {q:"Bairn",r:"Scottish",m:"a child"},
+      {q:"Ken",r:"Scottish",m:"to know"},
+      {q:"Bonnie",r:"Scottish",m:"pretty, lovely"},
+      {q:"Greet",r:"Scottish",m:"to cry"},
+      {q:"Dreich",r:"Scottish",m:"dreary, wet weather"},
+      {q:"Numpty",r:"Scottish",m:"a foolish person"},
+      {q:"Braw",r:"Scottish",m:"fine, splendid"},
+      {q:"Blether",r:"Scottish",m:"to chat idly"},
+      {q:"Scunnered",r:"Scottish",m:"fed up, disgusted"},
+      {q:"Wean",r:"Scottish",m:"a young child"},
+      {q:"Crabbit",r:"Scottish",m:"grumpy, bad-tempered"},
+      {q:"Peely-wally",r:"Scottish",m:"pale, sickly"},
+      {q:"Sleekit",r:"Scottish",m:"sly, sneaky"},
+      {q:"Drookit",r:"Scottish",m:"soaked, drenched"},
+      {q:"Wheesht",r:"Scottish",m:"be quiet, hush"},
+      {q:"Tattie",r:"Scottish",m:"a potato"},
+      {q:"Boggin",r:"Scottish",m:"disgusting, filthy"},
+      {q:"Glaikit",r:"Scottish",m:"dim-witted, foolish"},
+      {q:"Stramash",r:"Scottish",m:"an uproar, commotion"},
+      {q:"Coorie",r:"Scottish",m:"to snuggle in"},
+      {q:"Haver",r:"Scottish",m:"to talk nonsense"},
+
+      {q:"Dog and bone",r:"Cockney (London)",m:"telephone (phone)"},
+      {q:"Plates of meat",r:"Cockney (London)",m:"feet"},
+      {q:"Trouble and strife",r:"Cockney (London)",m:"wife"},
+      {q:"Apples and pears",r:"Cockney (London)",m:"stairs"},
+      {q:"Boat race",r:"Cockney (London)",m:"face"},
+      {q:"Butcher's hook",r:"Cockney (London)",m:"a look"},
+      {q:"Bread and honey",r:"Cockney (London)",m:"money"},
+      {q:"Use your loaf",r:"Cockney (London)",m:"use your head"},
+      {q:"Porkies",r:"Cockney (London)",m:"lies (pork pies)"},
+      {q:"Ruby Murray",r:"Cockney (London)",m:"a curry"},
+      {q:"Barnet",r:"Cockney (London)",m:"hair (Barnet Fair)"},
+      {q:"Mince pies",r:"Cockney (London)",m:"eyes"},
+      {q:"Tea leaf",r:"Cockney (London)",m:"a thief"},
+      {q:"Cream crackered",r:"Cockney (London)",m:"exhausted (knackered)"},
+      {q:"Hank Marvin",r:"Cockney (London)",m:"starving"},
+      {q:"Pete Tong",r:"Cockney (London)",m:"wrong"},
+      {q:"Brass tacks",r:"Cockney (London)",m:"the facts"},
+      {q:"Daisy roots",r:"Cockney (London)",m:"boots"},
+      {q:"Septic tank",r:"Cockney (London)",m:"an American (Yank)"},
+      {q:"Boracic",r:"Cockney (London)",m:"broke, penniless"},
+
+      {q:"Y'all",r:"Southern US",m:"you all"},
+      {q:"Fixin' to",r:"Southern US",m:"about to"},
+      {q:"Yonder",r:"Southern US",m:"over there"},
+      {q:"Reckon",r:"Southern US",m:"to suppose, think"},
+      {q:"Britches",r:"Southern US",m:"trousers, pants"},
+      {q:"Holler",r:"Southern US",m:"a small valley (or to shout)"},
+      {q:"Madder than a wet hen",r:"Southern US",m:"very angry"},
+      {q:"Catty-corner",r:"Southern US",m:"diagonally across"},
+      {q:"Bless your heart",r:"Southern US",m:"oh you poor thing (often sarcastic)"},
+      {q:"Might could",r:"Southern US",m:"might be able to"},
+      {q:"Ornery",r:"Southern US",m:"grumpy, mean"},
+      {q:"Conniption",r:"Southern US",m:"a fit of anger"},
+      {q:"Hankering",r:"Southern US",m:"a strong craving"},
+      {q:"Vittles",r:"Southern US",m:"food, victuals"},
+      {q:"Cattywampus",r:"Southern US",m:"crooked, askew"},
+      {q:"Fit to be tied",r:"Southern US",m:"very upset"},
+      {q:"Buggy",r:"Southern US",m:"a shopping cart"},
+      {q:"Lollygag",r:"Southern US",m:"to dawdle"},
+      {q:"Plumb tuckered out",r:"Southern US",m:"completely exhausted"},
+      {q:"Pitch a fit",r:"Southern US",m:"to throw a tantrum"},
+
+      {q:"Arvo",r:"Australian",m:"afternoon"},
+      {q:"Brekkie",r:"Australian",m:"breakfast"},
+      {q:"Servo",r:"Australian",m:"petrol / gas station"},
+      {q:"Thongs",r:"Australian",m:"flip-flops"},
+      {q:"Esky",r:"Australian",m:"a cooler box"},
+      {q:"Maccas",r:"Australian",m:"McDonald's"},
+      {q:"Ute",r:"Australian",m:"a pickup truck"},
+      {q:"Sanga",r:"Australian",m:"a sandwich"},
+      {q:"Fair dinkum",r:"Australian",m:"genuine, true"},
+      {q:"Bogan",r:"Australian",m:"an unrefined person"},
+      {q:"Mozzie",r:"Australian",m:"a mosquito"},
+      {q:"Sunnies",r:"Australian",m:"sunglasses"},
+      {q:"Cuppa",r:"Australian",m:"a cup of tea"},
+      {q:"Barbie",r:"Australian",m:"a barbecue"},
+      {q:"Bottle-o",r:"Australian",m:"a liquor store"},
+      {q:"Chook",r:"Australian",m:"a chicken"},
+      {q:"Dunny",r:"Australian",m:"a toilet"},
+      {q:"Tradie",r:"Australian",m:"a tradesperson"},
+      {q:"Rellies",r:"Australian",m:"relatives"},
+      {q:"She'll be right",r:"Australian",m:"it'll be fine"},
+
+      {q:"Craic",r:"Irish",m:"fun, a good time"},
+      {q:"Grand",r:"Irish",m:"fine, okay"},
+      {q:"Eejit",r:"Irish",m:"an idiot"},
+      {q:"Yoke",r:"Irish",m:"a thing, gadget"},
+      {q:"Culchie",r:"Irish",m:"a country person"},
+      {q:"Press",r:"Irish",m:"a cupboard"},
+      {q:"Messages",r:"Irish",m:"groceries"},
+      {q:"Deadly",r:"Irish",m:"great, excellent"},
+      {q:"Banjaxed",r:"Irish",m:"broken, ruined"},
+      {q:"Gas",r:"Irish",m:"hilarious, funny"},
+      {q:"Acting the maggot",r:"Irish",m:"messing about"},
+      {q:"Scarlet",r:"Irish",m:"mortified, embarrassed"},
+      {q:"Sound",r:"Irish",m:"decent, reliable (person)"},
+      {q:"Give out",r:"Irish",m:"to scold, complain"},
+      {q:"Manky",r:"Irish",m:"filthy, disgusting"},
+      {q:"Jacks",r:"Irish",m:"the toilet"},
+      {q:"What's the story",r:"Irish",m:"what's up? how are you?"},
+      {q:"Naggin",r:"Irish",m:"a small bottle of spirits"}
+    ]
+  }
+};
+
+const T = {
+  ko:{
+    title:"사투리 맞추기", sub:"이 말, 어느 지역 사투리일까요?<br>영화·드라마 명대사도 섞여 있어요. 10문제 도전!",
+    start:"퀴즈 시작", langBtn:"EN",
+    bsLbl:"최고 점수", stLbl:"최고 연속",
+    count:n=>`${n} / ${DRAW}`, score:(s,k)=>`점수 ${s}${k>=2?` · 🔥${k}`:""}`,
+    label:"이 표현은?", labelQ:"이 명대사는?", ask:"어느 지역 사투리일까요?",
+    hintBtn:"💡 힌트 보기", next:"다음", finish:"결과 보기",
+    region:"지역", mean:"뜻", source:"출처",
+    correct:"정답!", wrong:"아쉬워요",
+    toplbl:"내 사투리 점수", of:s=>`${s}<span> / ${DRAW}</span>`,
+    streakRes:k=>`최고 연속 정답 <span>🔥 ${k}개</span>`,
+    gotLbl:"맞힌 지역",
+    cardScore:"점수 카드", cardHof:"전당 카드", share:"링크 공유", retry:"다시 풀기", home:"OnlyOne 더 보기",
+    hof:"명예의 전당 (이 기기 기준)", nohof:"아직 기록이 없어요. 첫 주인공이 되어보세요!",
+    you:"나", saveAlert:"이미지를 저장했어요!", copyAlert:"링크가 복사되었어요!",
+    fhome:"OnlyOne 홈", fcontact:"문의하기",
+    disc:"이 페이지에는 쿠팡 파트너스 등 제휴 링크가 포함될 수 있으며, 이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.",
+    cnTtl:"쿠키 사용 동의", cnBody:"방문 통계(Google Analytics)를 위해 쿠키를 사용해요. 동의하시면 더 나은 서비스를 만드는 데 큰 도움이 됩니다.",
+    accept:"동의", deny:"거부",
+    ranks:[[10,"🏆 사투리 마스터"],[8,"🎓 사투리 박사"],[6,"😎 사투리 능통자"],[4,"🙂 사투리 입문자"],[0,"📘 표준어 사용자"]],
+    rdesc:s=>s===DRAW?"완벽해요! 전국 팔도를 꿰뚫었네요.":s>=8?"거의 다 맞혔어요. 대단해요!":s>=6?"사투리 감이 좋으시네요.":s>=4?"조금만 더 들어보면 금방 늘어요.":"표준어 파시군요! 다시 도전해 볼까요?",
+    sharetxt:(s,k)=>`사투리 맞추기 ${s}/${DRAW}점 (최고 연속 🔥${k})! 당신의 사투리력은? · OnlyOne`,
+    hofTitle:"명예의 전당",
+    globalHof:"글로벌 랭킹", lbLoading:"불러오는 중…",
+    lbEmpty:"아직 글로벌 기록이 없어요. 1등에 도전!",
+    lbErr:"글로벌 랭킹은 배포 후 동작해요.",
+    nameLbl:"글로벌 랭킹에 이름 올리기", namePh:"닉네임 (최대 12자)",
+    submitBtn:"등록", submitted:"등록 완료! 🎉", myRank:n=>`내 순위 ${n}위`
+  },
+  en:{
+    title:"Guess the Dialect", sub:"Where is this slang from?<br>Famous movie lines are mixed in. Take on 10 questions!",
+    start:"Start Quiz", langBtn:"한국어",
+    bsLbl:"Best score", stLbl:"Best streak",
+    count:n=>`${n} / ${DRAW}`, score:(s,k)=>`Score ${s}${k>=2?` · 🔥${k}`:""}`,
+    label:"This expression", labelQ:"This famous line", ask:"Which region is it from?",
+    hintBtn:"💡 Show hint", next:"Next", finish:"See result",
+    region:"Region", mean:"Meaning", source:"Source",
+    correct:"Correct!", wrong:"Not quite",
+    toplbl:"My dialect score", of:s=>`${s}<span> / ${DRAW}</span>`,
+    streakRes:k=>`Best streak <span>🔥 ${k}</span>`,
+    gotLbl:"Regions you nailed",
+    cardScore:"Score card", cardHof:"Hall card", share:"Share link", retry:"Play again", home:"More from OnlyOne",
+    hof:"Hall of Fame (this device)", nohof:"No records yet. Be the first!",
+    you:"You", saveAlert:"Image saved!", copyAlert:"Link copied!",
+    fhome:"OnlyOne Home", fcontact:"Contact",
+    disc:"This page may contain affiliate links (e.g. Amazon Associates). As an Amazon Associate we earn from qualifying purchases.",
+    cnTtl:"Cookie consent", cnBody:"We use cookies for visit analytics (Google Analytics). Allowing them helps us build a better experience.",
+    accept:"Accept", deny:"Decline",
+    ranks:[[10,"🏆 Dialect Master"],[8,"🎓 Dialect Scholar"],[6,"😎 Fluent Speaker"],[4,"🙂 Beginner"],[0,"📘 Standard Speaker"]],
+    rdesc:s=>s===DRAW?"Flawless! You know them all.":s>=8?"Almost perfect — impressive!":s>=6?"You've got a good ear.":s>=4?"A little more listening and you'll nail it.":"Pure standard speech! Try again?",
+    sharetxt:(s,k)=>`I scored ${s}/${DRAW} on Guess the Dialect (best streak 🔥${k})! What's your dialect IQ? · OnlyOne`,
+    hofTitle:"Hall of Fame",
+    globalHof:"Global Ranking", lbLoading:"Loading…",
+    lbEmpty:"No global scores yet. Claim #1!",
+    lbErr:"Global ranking works once deployed.",
+    nameLbl:"Add your name to the global ranking", namePh:"Nickname (max 12)",
+    submitBtn:"Submit", submitted:"Submitted! 🎉", myRank:n=>`Your rank: #${n}`
+  }
+};
+
+/* ===== 상태 ===== */
+let lang = localStorage.getItem("oo_dialect_lang") || ((navigator.language||"ko").startsWith("ko") ? "ko" : "en");
+if(!["ko","en"].includes(lang)) lang="ko";
+let game = null;
+
+const $ = id => document.getElementById(id);
+const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+function show(sec){ ["start","quiz","result"].forEach(s=>$(s).classList.toggle("hide", s!==sec)); }
+
+/* ===== 클라이언트 식별자 ===== */
+let myCid=localStorage.getItem("oo_cid");
+if(!myCid){ myCid=Date.now().toString(36)+Math.random().toString(36).slice(2,8); localStorage.setItem("oo_cid",myCid); }
+
+/* ===== 읽어주기 (Web Speech) ===== */
+let VOICES=[];
+function loadVoices(){ try{ VOICES=speechSynthesis.getVoices()||[]; }catch(e){ VOICES=[]; } }
+if("speechSynthesis" in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+const EN_VOICE={"Australian":"en-AU","Southern US":"en-US","Scottish":"en-GB","Cockney (London)":"en-GB","Irish":"en-IE"};
+function ttsLang(region){ return lang==="ko" ? "ko-KR" : (EN_VOICE[region]||"en-GB"); }
+function pickVoice(code){ if(!VOICES.length) return null;
+  return VOICES.find(v=>v.lang.toLowerCase()===code.toLowerCase()) || VOICES.find(v=>v.lang.toLowerCase().startsWith(code.slice(0,2))) || null; }
+function speak(text, region){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=ttsLang(region); const v=pickVoice(u.lang); if(v) u.voice=v; u.rate=0.92;
+  const btn=$("q-speak"); btn.classList.add("playing");
+  u.onend=u.onerror=()=>btn.classList.remove("playing");
+  speechSynthesis.speak(u);
+}
+
+/* ===== 글로벌 리더보드 (Workers KV) ===== */
+const LB_API="/api/lb";
+function esc(s){ return String(s).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c])); }
+async function fetchLB(){ try{ const r=await fetch(LB_API+"?lang="+lang,{cache:"no-store"}); if(!r.ok) throw 0; return await r.json(); }catch(e){ return null; } }
+async function submitScore(name){
+  try{ const r=await fetch(LB_API,{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({lang, name, cid:myCid, score:game.score, streak:game.maxStreak})});
+    if(!r.ok) throw 0; return await r.json(); }catch(e){ return null; }
+}
+function renderLB(wrapId, data){
+  const t=T[lang], w=$(wrapId); if(!w) return;
+  if(data===null){ w.innerHTML=`<h3>🌐 ${t.globalHof}</h3><div class="lbload">${t.lbErr}</div>`; return; }
+  const list=(data.top||[]);
+  if(!list.length){ w.innerHTML=`<h3>🌐 ${t.globalHof}</h3><div class="lbload">${t.lbEmpty}</div>`; return; }
+  const li=list.slice(0,10).map((r,i)=>`<li class="${medalClass(i)} ${r.cid===myCid?'me':''}"><span class="nm">${esc(r.name)}</span><span class="sc">${r.score}/${DRAW} · 🔥${r.streak}</span></li>`).join("");
+  w.innerHTML=`<h3>🌐 ${t.globalHof}</h3><ol>${li}</ol>`;
+}
+async function loadStartLB(){ const w=$("s-lbWrap"); if(!w) return;
+  w.innerHTML=`<h3>🌐 ${T[lang].globalHof}</h3><div class="lbload">${T[lang].lbLoading}</div>`;
+  renderLB("s-lbWrap", await fetchLB()); }
+async function doSubmit(){
+  const t=T[lang]; let name=($("r-name").value||"").trim().slice(0,12);
+  if(!name) name = lang==="ko"?"익명":"Anon";
+  localStorage.setItem("oo_name",name);
+  $("r-submit").disabled=true; $("r-msg").textContent="…";
+  const res=await submitScore(name);
+  if(res){ $("r-msg").textContent=t.submitted+(res.rank?` · ${t.myRank(res.rank)}`:""); renderLB("r-lbWrap", res); }
+  else { $("r-msg").textContent=t.lbErr; $("r-submit").disabled=false; }
+}
+async function setupResultLB(){
+  $("r-name").value=localStorage.getItem("oo_name")||"";
+  $("r-msg").textContent=""; $("r-submit").disabled=false;
+  $("r-lbWrap").innerHTML=`<h3>🌐 ${T[lang].globalHof}</h3><div class="lbload">${T[lang].lbLoading}</div>`;
+  if(localStorage.getItem("oo_name")) doSubmit();
+  else renderLB("r-lbWrap", await fetchLB());
+}
+
+function renderStatic(){
+  const t=T[lang];
+  document.documentElement.lang=lang;
+  $("langBtn").textContent=t.langBtn;
+  $("s-title").textContent=t.title;
+  $("s-sub").innerHTML=t.sub;
+  $("startBtn").textContent=t.start;
+  $("s-bs-lbl").textContent=t.bsLbl;
+  $("s-st-lbl").textContent=t.stLbl;
+  const b=bestStats();
+  $("s-best").textContent = b? `${b.s} / ${DRAW}` : "–";
+  $("s-streak").textContent = b? `🔥 ${b.k}` : "–";
+  $("f-home").textContent=t.fhome;
+  $("f-contact").textContent=t.fcontact;
+  $("f-disc").textContent=t.disc;
+  $("cn-ttl").textContent=t.cnTtl;
+  $("cn-body").textContent=t.cnBody;
+  $("c-accept").textContent=t.accept;
+  $("c-deny").textContent=t.deny;
+  $("q-hintBtn").textContent=t.hintBtn;
+  $("r-cardScore").textContent="🖼️ "+t.cardScore;
+  $("r-cardHof").textContent="🏆 "+t.cardHof;
+  $("r-share").textContent="🔗 "+t.share;
+  $("r-retry").textContent=t.retry;
+  $("r-home").textContent=t.home;
+  $("r-toplbl").textContent=t.toplbl;
+  $("r-namelbl").textContent=t.nameLbl;
+  $("r-name").placeholder=t.namePh;
+  $("r-submit").textContent=t.submitBtn;
+  renderHOF("s-hofWrap");
+  loadStartLB();
+}
+
+/* ===== 명예의 전당 (score + maxStreak) ===== */
+function hofKey(){ return "oo_dialect_hof2_"+lang; }
+function getHOF(){ try{ return JSON.parse(localStorage.getItem(hofKey())||"[]"); }catch(e){ return []; } }
+function bestStats(){ const h=getHOF(); return h.length? h[0] : null; }
+function pushHOF(score, streak){
+  const h=getHOF();
+  h.push({s:score, k:streak, d:new Date().toISOString().slice(0,10)});
+  h.sort((a,b)=> b.s-a.s || b.k-a.k || (a.d<b.d?-1:1));
+  localStorage.setItem(hofKey(), JSON.stringify(h.slice(0,5)));
+}
+function medalClass(i){ return i===0?"gold":i===1?"silver":i===2?"bronze":""; }
+function renderHOF(wrapId){
+  const t=T[lang], h=getHOF(), w=$(wrapId);
+  if(!h.length){ w.innerHTML=`<h3>${t.hof}</h3><div style="color:var(--sub);font-size:14px;padding:4px 2px;">${t.nohof}</div>`; return; }
+  const li=h.map((r,i)=>`<li class="${medalClass(i)}"><span class="nm">${t.you} · ${r.d}</span><span class="sc">${r.s}/${DRAW} · 🔥${r.k}</span></li>`).join("");
+  w.innerHTML=`<h3>${t.hof}</h3><ol>${li}</ol>`;
+}
+
+/* ===== 퀴즈 ===== */
+function startQuiz(){
+  const data=POOL[lang];
+  const picks=shuffle([...data.q]).slice(0,DRAW);
+  game={items:picks, i:0, score:0, streak:0, maxStreak:0, correctRegions:{}};
+  show("quiz");
+  if(typeof gtag==="function") gtag('event','quiz_start',{quiz:'dialect',lang});
+  renderQuestion();
+}
+function renderQuestion(){
+  const t=T[lang], data=POOL[lang], cur=game.items[game.i];
+  $("q-count").textContent=t.count(game.i+1);
+  $("q-score").textContent=t.score(game.score, game.streak);
+  $("q-bar").style.width=(game.i/DRAW*100)+"%";
+  const isQuote=!!cur.src;
+  $("q-label").textContent=isQuote? t.labelQ : t.label;
+  const w=$("q-word"); w.textContent=cur.q; w.classList.toggle("quote", isQuote);
+  $("q-ask").textContent=t.ask;
+  const others=shuffle(data.regions.filter(r=>r!==cur.r)).slice(0,3);
+  const opts=shuffle([cur.r,...others]);
+  const box=$("q-opts"); box.innerHTML="";
+  opts.forEach(o=>{ const b=document.createElement("button"); b.className="opt"; b.textContent=o; b.onclick=()=>answer(b,o,cur); box.appendChild(b); });
+  $("q-hintBtn").classList.remove("hide");
+  $("q-hint").classList.add("hide");
+  $("q-hint").textContent="💡 "+data.hint[cur.r];
+  $("q-reveal").classList.add("hide");
+  $("q-next").classList.add("hide");
+}
+function answer(btn, choice, cur){
+  const t=T[lang], correct=choice===cur.r;
+  if(correct){ game.score++; game.streak++; if(game.streak>game.maxStreak) game.maxStreak=game.streak; game.correctRegions[cur.r]=true; if(game.streak>=2) showCombo(game.streak); }
+  else { game.streak=0; }
+  [...$("q-opts").children].forEach(b=>{ b.disabled=true; if(b.textContent===cur.r) b.classList.add("correct"); else if(b===btn) b.classList.add("wrong"); else b.classList.add("dim"); });
+  $("q-score").textContent=t.score(game.score, game.streak);
+  $("q-hintBtn").classList.add("hide");
+  $("q-hint").classList.add("hide");
+  let html=`<span class="tag ${correct?'y':'n'}">${correct?t.correct:t.wrong}</span><br><b>${t.region}</b> · ${cur.r}<br><b>${t.mean}</b> · ${cur.m}`;
+  if(cur.src) html+=`<br><span class="src">🎬 ${t.source} · ${cur.src}</span>`;
+  $("q-reveal").innerHTML=html;
+  $("q-reveal").classList.remove("hide");
+  $("q-next").textContent=(game.i===DRAW-1)? t.finish : t.next;
+  $("q-next").classList.remove("hide");
+}
+function next(){ if(game.i===DRAW-1){ finish(); return; } game.i++; renderQuestion(); }
+
+function showCombo(n){
+  const c=$("combo"); c.textContent=`🔥 ${n}${lang==="ko"?"연속!":" streak!"}`;
+  c.classList.add("on"); clearTimeout(showCombo._t);
+  showCombo._t=setTimeout(()=>c.classList.remove("on"),900);
+}
+
+/* ===== 결과 ===== */
+function rankOf(s){ const r=T[lang].ranks.find(x=>s>=x[0]); return r?r[1]:""; }
+function finish(){
+  const t=T[lang], s=game.score, k=game.maxStreak;
+  pushHOF(s,k);
+  show("result");
+  $("r-rank").textContent=rankOf(s);
+  $("r-of").innerHTML=t.of(s);
+  $("r-desc").textContent=t.rdesc(s);
+  $("r-streak").innerHTML=t.streakRes(k);
+  const regs=Object.keys(game.correctRegions);
+  $("r-badges").innerHTML = regs.length? `<span style="width:100%;color:var(--sub);font-size:13px;font-weight:600;">${t.gotLbl}</span>`+regs.map(r=>`<span class="badge">${r}</span>`).join("") : "";
+  renderHOF("r-hofWrap");
+  setupResultLB();
+  drawScoreCard(s,k);
+  drawHofCard();
+  if(s>=8) confetti();
+  if(typeof gtag==="function") gtag('event','quiz_complete',{quiz:'dialect',lang,score:s,streak:k});
+}
+
+/* ===== 카드 PNG ===== */
+function roundRect(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath();}
+function drawLogo(x,cx,topy){
+  x.strokeStyle="#43474d"; x.lineWidth=22; x.beginPath(); x.arc(cx,topy,52,0,Math.PI*2); x.stroke();
+  x.fillStyle="#43474d"; roundRect(x,cx-12,topy+50,24,66,12); x.fill();
+}
+function drawScoreCard(s,k){
+  const c=$("r-canvas"), x=c.getContext("2d"), t=T[lang];
+  x.fillStyle="#f5f5f7"; x.fillRect(0,0,800,1000);
+  x.fillStyle="#ffffff"; roundRect(x,50,50,700,900,40); x.fill();
+  drawLogo(x,400,180); x.textAlign="center";
+  x.fillStyle="#43474d"; x.font="700 42px Pretendard,sans-serif"; x.fillText("OnlyOne",400,360);
+  x.fillStyle="#6e6e73"; x.font="600 26px Pretendard,sans-serif"; x.fillText(t.title,400,420);
+  x.fillStyle="#1d1d1f"; x.font="800 150px Pretendard,sans-serif"; x.fillText(s,400,610);
+  x.fillStyle="#6e6e73"; x.font="600 38px Pretendard,sans-serif"; x.fillText("/ "+DRAW,400,668);
+  x.fillStyle="#0071e3"; x.font="800 38px Pretendard,sans-serif"; x.fillText(rankOf(s),400,758);
+  x.fillStyle="#e8590c"; x.font="700 30px Pretendard,sans-serif"; x.fillText("🔥 "+k,400,820);
+  x.fillStyle="#a1a1a6"; x.font="500 22px Pretendard,sans-serif"; x.fillText("main.onlyonecorpceo.workers.dev",400,895);
+}
+function drawHofCard(){
+  const c=$("r-hofcanvas"), x=c.getContext("2d"), t=T[lang], h=getHOF();
+  x.fillStyle="#f5f5f7"; x.fillRect(0,0,800,1000);
+  x.fillStyle="#ffffff"; roundRect(x,50,50,700,900,40); x.fill();
+  drawLogo(x,400,160); x.textAlign="center";
+  x.fillStyle="#43474d"; x.font="700 38px Pretendard,sans-serif"; x.fillText("OnlyOne",400,330);
+  x.fillStyle="#1d1d1f"; x.font="800 40px Pretendard,sans-serif"; x.fillText("🏆 "+t.hofTitle,400,400);
+  x.fillStyle="#6e6e73"; x.font="600 24px Pretendard,sans-serif"; x.fillText(t.title,400,445);
+  const medals=["🥇","🥈","🥉","4","5"];
+  let y=520;
+  h.forEach((r,i)=>{
+    x.fillStyle="#f0f0f3"; roundRect(x,110,y-42,580,66,18); x.fill();
+    x.textAlign="left"; x.fillStyle="#1d1d1f"; x.font="700 30px Pretendard,sans-serif";
+    x.fillText(`${medals[i]}  ${r.d}`,140,y);
+    x.textAlign="right"; x.fillStyle="#0071e3"; x.font="800 30px Pretendard,sans-serif";
+    x.fillText(`${r.s}/${DRAW}  🔥${r.k}`,660,y);
+    y+=80;
+  });
+  x.textAlign="center"; x.fillStyle="#a1a1a6"; x.font="500 22px Pretendard,sans-serif";
+  x.fillText("main.onlyonecorpceo.workers.dev",400,910);
+}
+function shareCanvas(canvas, fname){
+  const t=T[lang];
+  canvas.toBlob(async (blob)=>{
+    if(!blob) return;
+    const file=new File([blob], fname, {type:"image/png"});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file], title:t.title}); return; }catch(e){}
+    }
+    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=fname; a.click();
+    setTimeout(()=>{ try{alert(t.saveAlert);}catch(e){} },200);
+  });
+}
+async function shareLink(){
+  const t=T[lang], text=t.sharetxt(game.score, game.maxStreak), url=location.href.split("?")[0];
+  if(navigator.share){ try{ await navigator.share({title:t.title, text, url}); return; }catch(e){} }
+  try{ await navigator.clipboard.writeText(text+" "+url); alert(t.copyAlert); }
+  catch(e){ prompt("link:", text+" "+url); }
+}
+
+/* ===== 컨페티 ===== */
+function confetti(){
+  const e=["🎉","✨","🎊","⭐","🥳"];
+  for(let i=0;i<26;i++){ const s=document.createElement("div"); s.className="confetti"; s.textContent=e[i%e.length];
+    s.style.left=Math.random()*100+"vw"; s.style.animationDelay=(Math.random()*.6)+"s"; s.style.fontSize=(16+Math.random()*18)+"px";
+    document.body.appendChild(s); setTimeout(()=>s.remove(),2700); }
+}
+
+/* ===== 언어 ===== */
+function toggleLang(){
+  lang=lang==="ko"?"en":"ko";
+  localStorage.setItem("oo_dialect_lang",lang);
+  renderStatic(); show("start"); game=null;
+}
+
+/* ===== 쿠키 동의 ===== */
+function initConsent(){
+  const saved=localStorage.getItem("oo_consent");
+  if(saved==="granted"){ grantConsent(); return; }
+  if(saved==="denied"){ return; }
+  $("consent").classList.remove("hide");
+}
+function grantConsent(){
+  if(typeof gtag==="function"){
+    gtag('consent','update',{ad_storage:'granted', ad_user_data:'granted', ad_personalization:'granted', analytics_storage:'granted'});
+  }
+}
+
+/* ===== 바인딩 ===== */
+$("langBtn").onclick=toggleLang;
+$("startBtn").onclick=startQuiz;
+$("q-hintBtn").onclick=()=>$("q-hint").classList.toggle("hide");
+$("q-speak").onclick=()=>{ if(game){ const c=game.items[game.i]; speak(c.q, c.r); } };
+$("q-next").onclick=next;
+$("r-cardScore").onclick=()=>shareCanvas($("r-canvas"),"onlyone-dialect-score.png");
+$("r-cardHof").onclick=()=>shareCanvas($("r-hofcanvas"),"onlyone-dialect-hall.png");
+$("r-share").onclick=shareLink;
+$("r-submit").onclick=doSubmit;
+$("r-retry").onclick=()=>{ show("start"); renderStatic(); };
+$("c-accept").onclick=()=>{ localStorage.setItem("oo_consent","granted"); grantConsent(); $("consent").classList.add("hide"); };
+$("c-deny").onclick=()=>{ localStorage.setItem("oo_consent","denied"); $("consent").classList.add("hide"); };
+
+renderStatic();
+show("start");
+initConsent();
+</script>
+</body>
+</html>
