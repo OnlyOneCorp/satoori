@@ -11,4 +11,4 @@ binding = "ASSETS"
 # 출력된 id 를 아래 id 에 붙여넣으세요.
 [[kv_namespaces]]
 binding = "LEADERBOARD"
-id = "여기에_KV_네임스페이스_ID"
+id = "a1fa04bf6f33476bae5f202af163e0bb"
