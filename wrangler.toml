@@ -9,4 +9,3 @@ binding = "ASSETS"
 [[kv_namespaces]]
 binding = "LEADERBOARD"
 id = "a1fa04bf6f33476bae5f202af163e0bb"
-
