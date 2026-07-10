@@ -5,6 +5,7 @@
  * 데이터: ./public/index.html에서 `const POOL = {...}` 자동 추출
  * 주의: 기존 public/ 구조(index.html, _headers, worker.js 연동)를 유지한 채 페이지만 추가 생성
  */
+
 const fs = require("fs");
 const path = require("path");
 
